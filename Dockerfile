@@ -52,10 +52,10 @@ RUN echo "[build][layer2] Clone + install + build..." && START=$(date +%s) \
   && echo "[build] version: $(cat /app/openclaw/.version)" \
   && echo "[build][layer2] Total clone+install+build: $(($(date +%s) - START))s"
 
-# ── Layer 3 (node): Scripts + Config + Token 注入 ─────────────────────────────
+# ── Layer 3 (node): Scripts + Config ──────────────────────────────────────────
 COPY --chown=node:node scripts /home/node/scripts
 COPY --chown=node:node openclaw.json /home/node/scripts/openclaw.json.default
-RUN chmod +x /home/node/scripts/entrypoint.sh /home/node/scripts/sync_hf.py /home/node/scripts/inject-token.sh
+RUN chmod +x /home/node/scripts/entrypoint.sh /home/node/scripts/sync_hf.py
 
 ENV NODE_ENV=production
 ENV OPENCLAW_BUNDLED_PLUGINS_DIR=/app/openclaw/empty-bundled-plugins

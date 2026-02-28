@@ -48,13 +48,6 @@ touch /home/node/logs/app.log
 ENTRYPOINT_END=$(date +%s)
 echo "[TIMER] Entrypoint (before sync_hf.py): $((ENTRYPOINT_END - BOOT_START))s"
 
-# ── Inject auth token into Control UI HTML ─────────────────────────────────
-INJECT_START=$(date +%s)
-if [ -x /home/node/scripts/inject-token.sh ]; then
-  bash /home/node/scripts/inject-token.sh
-fi
-echo "[TIMER] Token inject: $(($(date +%s) - INJECT_START))s"
-
 # ── Set version from build artifact ────────────────────────────────────────
 if [ -f /app/openclaw/.version ]; then
   export OPENCLAW_VERSION=$(cat /app/openclaw/.version)

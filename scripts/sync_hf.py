@@ -64,6 +64,9 @@ TELEGRAM_ALLOW_USER = os.environ.get("TELEGRAM_ALLOW_USER", "")
 # OpenRouter API key for free models (must be set via environment variable)
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", "")
 
+# Gateway password (override via HF Secret OPENCLAW_PASSWORD)
+OPENCLAW_PASSWORD = os.environ.get("OPENCLAW_PASSWORD", "huggingclaw")
+
 SYNC_INTERVAL = int(os.environ.get("SYNC_INTERVAL", "120"))
 
 # Setup logging
@@ -321,13 +324,15 @@ class OpenClawFullSync:
                     data["plugins"]["locations"] = [l for l in locs if l != "/dev/null"]
 
             # Force full gateway config for HF Spaces
-            # Note: Dockerfile injects "openclaw-space-default" token into Control UI,
-            # so we MUST set it here to match what the browser sends.
+            # Password auth: user must enter password in Control UI settings
+            if not OPENCLAW_PASSWORD:
+                print("[SYNC] WARNING: OPENCLAW_PASSWORD not set! Gateway will auto-generate a random token.")
+            auth = {"password": OPENCLAW_PASSWORD} if OPENCLAW_PASSWORD else {}
             data["gateway"] = {
                 "mode": "local",
                 "bind": "lan",
                 "port": 7860,
-                "auth": {"token": "hf-space-public-token"},
+                "auth": auth,
                 "trustedProxies": ["0.0.0.0/0"],
                 "controlUi": {
                     "allowInsecureAuth": True,
@@ -339,7 +344,7 @@ class OpenClawFullSync:
                     ]
                 }
             }
-            print("[SYNC] Set gateway config (auth=default, trustedProxies=all)")
+            print(f"[SYNC] Set gateway config (auth={'password' if OPENCLAW_PASSWORD else 'auto-generated'}, trustedProxies=all)")
 
             # Ensure agents defaults
             data.setdefault("agents", {}).setdefault("defaults", {}).setdefault("model", {})
