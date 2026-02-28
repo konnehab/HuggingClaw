@@ -252,14 +252,23 @@ class OpenClawFullSync:
         default_src = Path(__file__).parent / "openclaw.json.default"
         if default_src.exists():
             shutil.copy2(str(default_src), str(config_path))
-            # Replace placeholder with actual env var value
-            text = config_path.read_text()
-            if "__OPENROUTER_API_KEY__" in text:
+            # Replace placeholder or remove provider if no API key
+            try:
+                with open(config_path, "r") as f:
+                    cfg = json.load(f)
                 if OPENROUTER_API_KEY:
-                    text = text.replace("__OPENROUTER_API_KEY__", OPENROUTER_API_KEY)
+                    # Replace placeholder with actual key
+                    if "models" in cfg and "providers" in cfg["models"] and "openrouter" in cfg["models"]["providers"]:
+                        cfg["models"]["providers"]["openrouter"]["apiKey"] = OPENROUTER_API_KEY
                 else:
-                    text = text.replace("__OPENROUTER_API_KEY__", "")
-                config_path.write_text(text)
+                    # No API key: remove provider entirely to avoid config validation error
+                    if "models" in cfg and "providers" in cfg["models"]:
+                        cfg["models"]["providers"].pop("openrouter", None)
+                    print("[SYNC] No OPENROUTER_API_KEY — removed openrouter provider from config")
+                with open(config_path, "w") as f:
+                    json.dump(cfg, f, indent=2)
+            except Exception as e:
+                print(f"[SYNC] Warning: failed to patch default config: {e}")
             print("[SYNC] Created openclaw.json from default template")
         else:
             with open(config_path, "w") as f:
@@ -323,7 +332,9 @@ class OpenClawFullSync:
                 "controlUi": {
                     "allowInsecureAuth": True,
                     "allowedOrigins": [
-                        "https://huggingface.co"
+                        "https://huggingface.co",
+                        "https://*.hf.space",
+                        "https://tao-shen-huggingclaw.hf.space"
                     ]
                 }
             }
