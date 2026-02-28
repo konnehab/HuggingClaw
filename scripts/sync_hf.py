@@ -125,12 +125,14 @@ class OpenClawFullSync:
         if not self.enabled:
             print("[SYNC] Persistence disabled - skipping restore")
             self._ensure_default_config()
+            self._patch_config()
             self._ensure_telegram_credentials()
             return
 
         if not self.dataset_exists:
             print(f"[SYNC] Dataset {HF_REPO_ID} does not exist - starting fresh")
             self._ensure_default_config()
+            self._patch_config()
             self._ensure_telegram_credentials()
             return
 
@@ -259,6 +261,10 @@ class OpenClawFullSync:
             try:
                 with open(config_path, "r") as f:
                     cfg = json.load(f)
+                # Replace password placeholder
+                if "gateway" in cfg and "auth" in cfg["gateway"]:
+                    if cfg["gateway"]["auth"].get("password") == "__OPENCLAW_PASSWORD__":
+                        cfg["gateway"]["auth"]["password"] = OPENCLAW_PASSWORD
                 if OPENROUTER_API_KEY:
                     # Replace placeholder with actual key
                     if "models" in cfg and "providers" in cfg["models"] and "openrouter" in cfg["models"]["providers"]:
