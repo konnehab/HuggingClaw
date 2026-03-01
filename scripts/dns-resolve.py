@@ -94,6 +94,17 @@ def main() -> None:
     with open(output_file, "w") as f:
         json.dump(results, f, indent=2)
 
+    # Also write to /etc/hosts so undici/fetch (which bypasses dns.lookup) works
+    if results:
+        try:
+            with open("/etc/hosts", "a") as f:
+                f.write("\n# === HuggingClaw DoH resolved domains ===\n")
+                for domain, ip in results.items():
+                    f.write(f"{ip} {domain}\n")
+            print(f"[dns] Wrote {len(results)} entries to /etc/hosts")
+        except PermissionError:
+            print("[dns] WARNING: cannot write /etc/hosts (permission denied)")
+
     print(f"[dns] Resolved {len(results)}/{len(DOMAINS)} domains -> {output_file}")
 
 
