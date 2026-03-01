@@ -10,7 +10,6 @@ short_description: Deploy OpenClaw on HuggingFace Spaces
 app_port: 7860
 tags:
   - huggingface
-  - huggingface-dataset
   - openrouter
   - chatbot
   - llm
@@ -79,7 +78,7 @@ Go to **Settings → Repository secrets** and configure:
 | Secret | Status | Description | Example |
 |--------|:------:|-------------|---------|
 | `HF_TOKEN` | **Required** | HF Access Token with write permission ([create one](https://huggingface.co/settings/tokens)) | `hf_AbCdEfGhIjKlMnOpQrStUvWxYz` |
-| `OPENCLAW_DATASET_REPO` | See below | Dataset repo for backup — format: `username/repo-name`. Required in manual mode; optional in auto mode (see [Data Persistence](#data-persistence)) | `tao-shen/HuggingClaw-data` |
+| `OPENCLAW_DATASET_REPO` | See below | Dataset repo for backup — format: `username/repo-name`. Required in manual mode; optional in auto mode (see [Data Persistence](#data-persistence)) | `your-name/YourSpace-data` |
 | `OPENAI_API_KEY` | Recommended | OpenAI (or any [OpenAI-compatible](https://openclawdoc.com/docs/reference/environment-variables)) API key | `sk-proj-xxxxxxxxxxxx` |
 | `OPENROUTER_API_KEY` | Optional | [OpenRouter](https://openrouter.ai) API key (200+ models, free tier available) | `sk-or-v1-xxxxxxxxxxxx` |
 | `ANTHROPIC_API_KEY` | Optional | Anthropic Claude API key | `sk-ant-xxxxxxxxxxxx` |
@@ -102,7 +101,7 @@ HuggingClaw syncs `~/.openclaw` (conversations, settings, credentials) to a priv
 1. Set `AUTO_CREATE_DATASET` = `true` in your Space secrets
 2. Set `HF_TOKEN` with write permission
 3. (Optional) Set `OPENCLAW_DATASET_REPO` if you want a custom repo name
-4. On first startup, HuggingClaw automatically creates a **private** Dataset repo. If `OPENCLAW_DATASET_REPO` is not set, it derives the name from your HF username + Space name: `your-username/SpaceName-data` (e.g. `tao-shen/HuggingClaw-data`). Each Space gets its own dataset, so duplicating a Space won't cause conflicts
+4. On first startup, HuggingClaw automatically creates a **private** Dataset repo. If `OPENCLAW_DATASET_REPO` is not set, it derives the name from your HF username + Space name: `your-username/SpaceName-data` (e.g. `your-name/YourSpace-data`). Each Space gets its own dataset, so duplicating a Space won't cause conflicts
 
 > **Security note:** `AUTO_CREATE_DATASET` defaults to `false` — the system will not create repos on your behalf unless you explicitly opt in.
 

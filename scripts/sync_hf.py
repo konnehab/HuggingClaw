@@ -81,7 +81,7 @@ SYNC_INTERVAL = int(os.environ.get("SYNC_INTERVAL", "60"))
 AUTO_CREATE_DATASET = os.environ.get("AUTO_CREATE_DATASET", "false").lower() in ("true", "1", "yes")
 
 # Dataset repo: always auto-derive from SPACE_ID when not explicitly set.
-# Format: {username}/{SpaceName}-data  (e.g. "tao-shen/HuggingClaw-data")
+# Format: {username}/{SpaceName}-data  (e.g. "your-name/YourSpace-data")
 # This ensures each duplicated Space gets its own dataset automatically.
 HF_REPO_ID = os.environ.get("OPENCLAW_DATASET_REPO", "")
 if not HF_REPO_ID and SPACE_ID:
