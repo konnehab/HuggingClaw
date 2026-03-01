@@ -431,6 +431,7 @@ class OpenClawFullSync:
                 "trustedProxies": ["0.0.0.0/0"],
                 "controlUi": {
                     "allowInsecureAuth": True,
+                    "dangerouslyDisableDeviceAuth": True,
                     "allowedOrigins": allowed_origins
                 }
             }
