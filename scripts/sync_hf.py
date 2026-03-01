@@ -203,7 +203,6 @@ class OpenClawFullSync:
 
         # Patch config after restore
         self._patch_config()
-        self._ensure_telegram_credentials()
         self._debug_list_files()
 
     # ── Save (periodic + shutdown) ─────────────────────────────────────
