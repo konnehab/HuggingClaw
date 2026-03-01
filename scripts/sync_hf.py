@@ -290,10 +290,10 @@ class OpenClawFullSync:
             try:
                 with open(config_path, "r") as f:
                     cfg = json.load(f)
-                # Replace password placeholder
+                # Replace token placeholder
                 if "gateway" in cfg and "auth" in cfg["gateway"]:
-                    if cfg["gateway"]["auth"].get("password") == "__OPENCLAW_PASSWORD__":
-                        cfg["gateway"]["auth"]["password"] = OPENCLAW_PASSWORD
+                    if cfg["gateway"]["auth"].get("token") == "__OPENCLAW_PASSWORD__":
+                        cfg["gateway"]["auth"]["token"] = OPENCLAW_PASSWORD
                 if OPENAI_API_KEY and "models" in cfg and "providers" in cfg["models"] and "openai" in cfg["models"]["providers"]:
                     cfg["models"]["providers"]["openai"]["apiKey"] = OPENAI_API_KEY
                     if OPENAI_BASE_URL:
@@ -364,10 +364,10 @@ class OpenClawFullSync:
                     data["plugins"]["locations"] = [l for l in locs if l != "/dev/null"]
 
             # Force full gateway config for HF Spaces
-            # Password auth: user must enter password in Control UI settings
+            # Token auth: persisted in browser localStorage after first entry
             if not OPENCLAW_PASSWORD:
-                print("[SYNC] WARNING: OPENCLAW_PASSWORD not set! Gateway will auto-generate a random token.")
-            auth = {"password": OPENCLAW_PASSWORD} if OPENCLAW_PASSWORD else {}
+                print("[SYNC] WARNING: OPENCLAW_PASSWORD not set! Gateway will have no auth.")
+            auth = {"token": OPENCLAW_PASSWORD} if OPENCLAW_PASSWORD else {}
             # Dynamic allowedOrigins from SPACE_HOST (auto-set by HF runtime)
             allowed_origins = [
                 "https://huggingface.co",
@@ -388,7 +388,7 @@ class OpenClawFullSync:
                     "allowedOrigins": allowed_origins
                 }
             }
-            print(f"[SYNC] Set gateway config (auth={'password' if OPENCLAW_PASSWORD else 'auto-generated'}, origins={len(allowed_origins)})")
+            print(f"[SYNC] Set gateway config (auth={'token' if OPENCLAW_PASSWORD else 'none'}, origins={len(allowed_origins)})")
 
             # Ensure agents defaults
             data.setdefault("agents", {}).setdefault("defaults", {}).setdefault("model", {})
