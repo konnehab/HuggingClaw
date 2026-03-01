@@ -486,7 +486,8 @@ class OpenClawFullSync:
             tg_ch = data.setdefault("channels", {}).setdefault("telegram", {})
             if tg_ch.get("dmPolicy") in ("pairing", None):
                 tg_ch["dmPolicy"] = "open"
-                print("[SYNC] Set channels.telegram.dmPolicy = open")
+                tg_ch["allowFrom"] = ["*"]
+                print("[SYNC] Set channels.telegram.dmPolicy = open, allowFrom = [*]")
             tg_ch["configWrites"] = True
 
             # ── Telegram API base auto-probe ──────────────────────────────
