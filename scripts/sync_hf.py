@@ -65,8 +65,8 @@ OPENAI_BASE_URL = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
 # OpenRouter API key (optional; alternative to OPENAI_API_KEY + OPENAI_BASE_URL)
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", "")
 
-# Gateway token (optional; if not set, Control UI connects without auth)
-GATEWAY_TOKEN = os.environ.get("GATEWAY_TOKEN", "")
+# Gateway token (default: huggingclaw; override via GATEWAY_TOKEN env var)
+GATEWAY_TOKEN = os.environ.get("GATEWAY_TOKEN", "huggingclaw")
 
 # Default model for new conversations (infer from provider if not set)
 OPENCLAW_DEFAULT_MODEL = os.environ.get("OPENCLAW_DEFAULT_MODEL") or (
@@ -347,12 +347,9 @@ class OpenClawFullSync:
             try:
                 with open(config_path, "r") as f:
                     cfg = json.load(f)
-                # Set auth based on GATEWAY_TOKEN env var
+                # Set gateway token
                 if "gateway" in cfg:
-                    if GATEWAY_TOKEN:
-                        cfg["gateway"]["auth"] = {"token": GATEWAY_TOKEN}
-                    else:
-                        cfg["gateway"]["auth"] = {"mode": "none"}
+                    cfg["gateway"]["auth"] = {"token": GATEWAY_TOKEN}
                 if OPENAI_API_KEY and "models" in cfg and "providers" in cfg["models"] and "openai" in cfg["models"]["providers"]:
                     cfg["models"]["providers"]["openai"]["apiKey"] = OPENAI_API_KEY
                     if OPENAI_BASE_URL:
@@ -431,18 +428,11 @@ class OpenClawFullSync:
             if SPACE_HOST:
                 allowed_origins.append(f"https://{SPACE_HOST}")
                 print(f"[SYNC] SPACE_HOST detected: {SPACE_HOST}")
-            # Auth: token mode if GATEWAY_TOKEN is set, otherwise no-auth mode
-            if GATEWAY_TOKEN:
-                auth_cfg = {"token": GATEWAY_TOKEN}
-                auth_label = f"token"
-            else:
-                auth_cfg = {"mode": "none"}
-                auth_label = "none (open access)"
             data["gateway"] = {
                 "mode": "local",
                 "bind": "lan",
                 "port": 7860,
-                "auth": auth_cfg,
+                "auth": {"token": GATEWAY_TOKEN},
                 "trustedProxies": ["0.0.0.0/0"],
                 "controlUi": {
                     "allowInsecureAuth": True,
@@ -450,7 +440,7 @@ class OpenClawFullSync:
                     "allowedOrigins": allowed_origins
                 }
             }
-            print(f"[SYNC] Set gateway config (auth={auth_label}, origins={len(allowed_origins)})")
+            print(f"[SYNC] Set gateway config (auth=token, origins={len(allowed_origins)})")
 
             # Ensure agents defaults
             data.setdefault("agents", {}).setdefault("defaults", {}).setdefault("model", {})
