@@ -64,7 +64,7 @@ In about 5 minutes, you’ll have a **free, always-on AI assistant** connected t
 | **Free forever** | HuggingFace Spaces gives you 2 vCPU + 16 GB RAM at no cost |
 | **Always online** | Your conversations, settings, and credentials survive every restart |
 | **WhatsApp & Telegram** | Works reliably, including channels that HF Spaces normally blocks |
-| **Any LLM** | OpenAI, Claude, Gemini, OpenRouter (200+ models, free tier available), or your own Ollama |
+| **Any LLM** | OpenAI, Claude, Gemini, Zhipu (GLM), OpenRouter (200+ models, free tier available), or your own Ollama |
 | **One-click deploy** | Duplicate the Space, set two secrets, done |
 
 > **Powered by [OpenClaw](https://github.com/openclaw/openclaw)** — an open-source AI assistant that normally requires your own machine (e.g. a Mac Mini). HuggingClaw makes it run for free on HuggingFace Spaces by solving two Spaces limitations: data loss on restart (fixed via HF Dataset sync) and DNS failures for some domains like WhatsApp (fixed via DNS-over-HTTPS).
@@ -95,6 +95,7 @@ Go to **Settings → Repository secrets** and add the following. The only two yo
 | `OPENAI_API_KEY` | Optional | OpenAI (or any [OpenAI-compatible](https://openclawdoc.com/docs/reference/environment-variables)) API key | `sk-proj-xxxxxxxxxxxx` |
 | `ANTHROPIC_API_KEY` | Optional | Anthropic Claude API key | `sk-ant-xxxxxxxxxxxx` |
 | `GOOGLE_API_KEY` | Optional | Google / Gemini API key | `AIzaSyXxXxXxXxXx` |
+| `ZHIPU_API_KEY` | Optional | [Zhipu AI](https://z.ai) (GLM-4 series) API key | `xxxxxxxx.xxxxxxxx` |
 | `OPENCLAW_DEFAULT_MODEL` | Optional | Default model for new conversations | `openai/gpt-oss-20b:free` |
 
 ### Data Persistence
@@ -142,7 +143,7 @@ Messaging integrations (Telegram, WhatsApp) can be configured directly inside th
 
 HuggingClaw supports **all OpenClaw environment variables** — it passes the entire environment to the OpenClaw process (`env=os.environ.copy()`), so any variable from the [OpenClaw docs](https://openclawdoc.com/docs/reference/environment-variables) works out of the box in HF Spaces. This includes:
 
-- **API Keys** — `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `GOOGLE_API_KEY`, `MISTRAL_API_KEY`, `COHERE_API_KEY`, `OPENROUTER_API_KEY`
+- **API Keys** — `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `GOOGLE_API_KEY`, `ZHIPU_API_KEY`, `MISTRAL_API_KEY`, `COHERE_API_KEY`, `OPENROUTER_API_KEY`
 - **Server** — `OPENCLAW_API_PORT`, `OPENCLAW_WS_PORT`, `OPENCLAW_HOST`
 - **Memory** — `OPENCLAW_MEMORY_BACKEND`, `OPENCLAW_REDIS_URL`, `OPENCLAW_SQLITE_PATH`
 - **Network** — `OPENCLAW_HTTP_PROXY`, `OPENCLAW_HTTPS_PROXY`, `OPENCLAW_NO_PROXY`
