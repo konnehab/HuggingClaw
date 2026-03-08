@@ -477,6 +477,11 @@ class OpenClawFullSync:
                     "baseUrl": "https://open.bigmodel.cn/api/paas/v4",
                     "apiKey": ZHIPU_API_KEY,
                     "api": "openai-completions",
+                    "models": [
+                        {"id": "glm-4-flash", "name": "GLM-4 Flash"},
+                        {"id": "glm-4-plus", "name": "GLM-4 Plus"},
+                        {"id": "glm-4-long", "name": "GLM-4 Long"},
+                    ]
                 }
                 print("[SYNC] Set Zhipu AI provider")
             if not providers:
