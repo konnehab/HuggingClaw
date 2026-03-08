@@ -451,18 +451,18 @@ class OpenClawFullSync:
             data.setdefault("agents", {}).setdefault("defaults", {}).setdefault("model", {})
             data.setdefault("session", {})["scope"] = "global"
 
-            # OpenAI-compatible provider (OPENAI_API_KEY + optional OPENAI_BASE_URL)
-            data.setdefault("models", {}).setdefault("providers", {})
+            # Build providers from scratch — only include providers with active API keys.
+            # This ensures removed secrets don't leave stale providers from backup.
+            providers = {}
             if OPENAI_API_KEY:
-                data["models"]["providers"]["openai"] = {
+                providers["openai"] = {
                     "baseUrl": OPENAI_BASE_URL,
                     "apiKey": OPENAI_API_KEY,
                     "api": "openai-completions",
                 }
                 print(f"[SYNC] Set OpenAI-compatible provider (baseUrl={OPENAI_BASE_URL})")
-            # OpenRouter provider (optional)
             if OPENROUTER_API_KEY:
-                data["models"]["providers"]["openrouter"] = {
+                providers["openrouter"] = {
                     "baseUrl": "https://openrouter.ai/api/v1",
                     "apiKey": OPENROUTER_API_KEY,
                     "api": "openai-completions",
@@ -472,22 +472,16 @@ class OpenClawFullSync:
                     ]
                 }
                 print("[SYNC] Set OpenRouter provider")
-            # Zhipu AI provider (optional)
             if ZHIPU_API_KEY:
-                data["models"]["providers"]["zhipu"] = {
+                providers["zhipu"] = {
                     "baseUrl": "https://open.bigmodel.cn/api/paas/v4",
                     "apiKey": ZHIPU_API_KEY,
                     "api": "openai-completions",
-                    "models": [
-                        {"id": "glm-4-flash", "name": "GLM-4 Flash"},
-                        {"id": "glm-4-plus", "name": "GLM-4 Plus"},
-                        {"id": "glm-4-long", "name": "GLM-4 Long"},
-                    ]
                 }
                 print("[SYNC] Set Zhipu AI provider")
-            if not OPENAI_API_KEY and not OPENROUTER_API_KEY and not ZHIPU_API_KEY:
+            if not providers:
                 print("[SYNC] WARNING: No API key set (OPENAI/OPENROUTER/ZHIPU), LLM features may not work")
-            data["models"]["providers"].pop("gemini", None)
+            data.setdefault("models", {})["providers"] = providers
             data["agents"]["defaults"]["model"]["primary"] = OPENCLAW_DEFAULT_MODEL
 
             # Plugin whitelist (only load telegram + whatsapp to speed up startup)
